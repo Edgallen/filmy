@@ -1,0 +1,20 @@
+<button
+  class="nav__button"
+  type="button"
+  [class.nav__button--active]="isActive()"
+  [disabled]="disabled()"
+  (click)="onClick($event)"
+>
+  <img
+    class="nav__icon"
+    [class.nav__icon--active]="isActive()"
+    [ngSrc]="iconUrl()"
+    width="24"
+    height="24"
+    alt=""
+  />
+
+  <span class="nav__text" [class.nav__text--active]="isActive()">
+    {{ text() }}
+  </span>
+</button>

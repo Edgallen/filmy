@@ -1,0 +1,34 @@
+<div class="private-layout">
+  <header class="private-layout__header">
+    <a
+      class="private-layout__logo"
+      routerLink="/private/home"
+      aria-label="Filmy: на главную"
+    >
+      <img priority ngSrc="/images/logo.png" width="117" height="29" alt="Filmy" />
+    </a>
+
+    <nav class="private-layout__menu" aria-label="Основная навигация">
+      @for (navLink of navLinks; track navLink.id) {
+        <div
+          class="private-layout__menu-item"
+          [routerLink]="navLink.disabled ? null : navLink.link"
+          routerLinkActive
+          [routerLinkActiveOptions]="{ exact: true }"
+          #rla="routerLinkActive"
+        >
+          <app-nav-button
+            [text]="navLink.text"
+            [iconUrl]="navLink.iconUrl"
+            [disabled]="navLink.disabled"
+            [isActive]="rla.isActive"
+          />
+        </div>
+      }
+    </nav>
+  </header>
+
+  <main class="private-layout__content">
+    <router-outlet />
+  </main>
+</div>
