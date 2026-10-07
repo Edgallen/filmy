@@ -1,0 +1,25 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 52px;
+  padding: 0 49px;
+  box-sizing: border-box;
+  background-color: #D89C00;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+
+  &__content {
+    font-size: 14px;
+    line-height: 1.2;
+    color: #FFFFFF;
+    overflow-wrap: anywhere;
+  }
+}
