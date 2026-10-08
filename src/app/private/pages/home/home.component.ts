@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
 
+import { MOVIES } from '../../../shared/const/fake-films.const';
+
+import type { IMovie } from '../../../shared/models/movie.model';
+import { CardComponent } from '../../components/card/card.component';
+
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomePage {}
+export class HomePage {
+  movies: IMovie[] = MOVIES;
+}

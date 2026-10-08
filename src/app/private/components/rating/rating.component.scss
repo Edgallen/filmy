@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &__star {
+    display: block;
+    flex-shrink: 0;
+    color: #C4C4C4;
+    width: 24px;
+    height: 24px;
+
+    &--active {
+      color: #FFC837;
+    }
+  }
+}

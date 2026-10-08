@@ -1,0 +1,22 @@
+@if (movie) {
+  <article class="card" [attr.title]="movie.description">
+    <div class="card__media">
+      <img class="card__poster" [src]="movie.posterUrl" [alt]="movie.title" />
+
+      <span
+        class="card__favorite"
+        [class.card__favorite--active]="movie.isFavorite"
+        [attr.aria-label]="movie.isFavorite ? 'В избранном' : 'Не в избранном'"
+        role="img"
+      >
+        <app-star-icon class="card__favorite-icon" />
+      </span>
+    </div>
+
+    <div class="card__content">
+      <h3 class="card__title">{{ movie.title }}</h3>
+
+      <app-rating [rating]="movie.rating" />
+    </div>
+  </article>
+}
