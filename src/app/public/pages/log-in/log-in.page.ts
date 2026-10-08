@@ -1,29 +1,33 @@
-import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { LayoutComponent } from '../../_layout/layout.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { PasswordInputComponent } from '../../../shared/components/password-input/password-input.component';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
   imports: [
-    LayoutComponent,
     ButtonComponent,
     InputComponent,
     NgOptimizedImage,
     PasswordInputComponent,
   ],
-  templateUrl: './login.page.html',
-  styleUrl: './login.page.scss',
-  standalone: true,
+  templateUrl: './log-in.page.html',
+  styleUrl: './log-in.page.scss',
 })
 export class LoginPage {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
   emailValue = '';
   passwordValue = '';
 
   onSubmit(event: Event): void {
     event.preventDefault();
+    this.authService.login();
+    void this.router.navigate(['/private/home']);
   }
 }
