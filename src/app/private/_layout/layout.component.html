@@ -28,7 +28,35 @@
     </nav>
   </header>
 
-  <main class="private-layout__content">
-    <router-outlet />
-  </main>
+  <div class="private-layout__body">
+    <aside class="private-layout__filters" aria-label="Фильтры фильмов">
+      @if (!routeState().hideSearch) {
+        <app-search
+          class="private-layout__search"
+          [value]="routeState().query"
+          (searchValue)="onSearch($event)"
+        />
+      }
+
+      <fieldset class="private-layout__genres">
+        <legend class="private-layout__label">Жанр</legend>
+        @for (genre of genres; track genre.id) {
+          <label class="private-layout__genre">
+            <input
+              class="private-layout__radio"
+              type="radio"
+              name="genre"
+              [value]="genre.id"
+              [(ngModel)]="selectedGenreId"
+            />
+            <span>{{ genre.name }}</span>
+          </label>
+        }
+      </fieldset>
+    </aside>
+
+    <main class="private-layout__content">
+      <router-outlet />
+    </main>
+  </div>
 </div>

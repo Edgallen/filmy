@@ -31,10 +31,14 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
+        title: 'Главная',
+        data: { hideSearch: false },
         component: HomePage,
       },
       {
         path: 'favorites',
+        title: 'Избранное',
+        data: { hideSearch: true },
         component: FavoritesPages,
       },
       {

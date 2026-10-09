@@ -12,6 +12,7 @@ export class InputComponent {
   iconUrl = input<string | null>(null);
   type = input<string>('text');
   placeholder = input<string>('');
+  ariaLabel = input<string | null>(null);
   disabled = input<boolean>(false);
 
   @Output()
