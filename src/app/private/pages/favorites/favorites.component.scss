@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.favorites {
+  &__count {
+    margin: 8px 0 0;
+    color: #a0a0a0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  &__movies {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 43px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__movie {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  &__empty {
+    margin: 0;
+    padding-block: 48px;
+    color: #a0a0a0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}

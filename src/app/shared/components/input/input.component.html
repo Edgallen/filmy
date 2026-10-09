@@ -9,6 +9,7 @@
     class="form__input"
     [type]="type()"
     [placeholder]="placeholder()"
+    [attr.aria-label]="ariaLabel()"
     [disabled]="disabled()"
     [value]="value()"
     (input)="onInput($event)"

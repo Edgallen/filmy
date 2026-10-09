@@ -1,1 +1,15 @@
-Избранное
+<app-header>
+  <p class="favorites__count">Вы добавили {{ movieCountLabel }}</p>
+</app-header>
+
+@if (movies.length) {
+  <ul class="favorites__movies">
+    @for (movie of movies; track movie.id) {
+      <li class="favorites__movie">
+        <app-card [movie]="movie" />
+      </li>
+    }
+  </ul>
+} @else {
+  <p class="favorites__empty">В избранном пока нет фильмов</p>
+}

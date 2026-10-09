@@ -1,0 +1,19 @@
+<form role="search" (submit)="onSubmit($event)">
+  <app-input
+    [value]="value()"
+    iconUrl="/icons/search.svg"
+    placeholder="Поиск"
+    ariaLabel="Поиск фильмов"
+    (controlValue)="searchValue.emit($event)"
+  >
+    <button
+      inputAction
+      class="search__submit"
+      type="submit"
+      aria-label="Найти фильмы"
+      title="Найти фильмы"
+    >
+      <img src="/icons/arrow-right.svg" width="20" height="20" alt="" />
+    </button>
+  </app-input>
+</form>

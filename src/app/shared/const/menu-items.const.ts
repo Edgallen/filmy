@@ -15,7 +15,7 @@ export const NAV_CONST: IMenu[] = [
     disabled: false,
   },
   {
-    text: 'Избранные',
+    text: 'Избранное',
     iconUrl: '/icons/star.svg',
     link: '/private/favorites',
     id: 'favorites',
