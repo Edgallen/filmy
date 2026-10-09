@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { TitleService } from '../../../shared/services/title.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +7,5 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  readonly title = toSignal(inject(ActivatedRoute).title);
+  readonly title = inject(TitleService).title;
 }

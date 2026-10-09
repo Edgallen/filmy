@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -15,8 +15,7 @@ export class InputComponent {
   ariaLabel = input<string | null>(null);
   disabled = input<boolean>(false);
 
-  @Output()
-  controlValue: EventEmitter<string> = new EventEmitter<string>();
+  readonly controlValue = output<string>();
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;

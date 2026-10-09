@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { StarIconComponent } from '../../../shared/components/star-icon/star-icon.component';
 import { RatingComponent } from '../rating/rating.component';
 
@@ -11,5 +11,5 @@ import type { IMovie } from '../../../shared/models/movie.model';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  @Input() movie: IMovie | null = null;
+  readonly movie = input<IMovie | null>(null);
 }

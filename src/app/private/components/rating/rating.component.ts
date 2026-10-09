@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { StarIconComponent } from '../../../shared/components/star-icon/star-icon.component';
 
 @Component({
@@ -8,6 +8,6 @@ import { StarIconComponent } from '../../../shared/components/star-icon/star-ico
   styleUrl: './rating.component.scss',
 })
 export class RatingComponent {
-  @Input() rating: number | null = null;
+  readonly rating = input<number | null>(null);
   readonly stars = [1, 2, 3, 4, 5];
 }

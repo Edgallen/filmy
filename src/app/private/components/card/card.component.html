@@ -1,4 +1,4 @@
-@if (movie) {
+@if (movie(); as movie) {
   <article class="card" [attr.title]="movie.description">
     <div class="card__media">
       <img class="card__poster" [src]="movie.posterUrl" [alt]="movie.title" />

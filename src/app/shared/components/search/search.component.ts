@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { InputComponent } from '../input/input.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { InputComponent } from '../input/input.component';
 export class SearchComponent {
   value = input('');
 
-  @Output() searchValue = new EventEmitter<string>();
+  readonly searchValue = output<string>();
 
   onSubmit(event: Event): void {
     event.preventDefault();
