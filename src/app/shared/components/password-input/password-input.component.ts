@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  EventEmitter,
-  input,
-  model,
-  Output,
-} from '@angular/core';
+import { Component, computed, input, model, output } from '@angular/core';
 
 import { InputComponent } from '../input/input.component';
 
@@ -36,8 +29,7 @@ export class PasswordInputComponent {
       : EPasswordInputIcons.Opened,
   );
 
-  @Output()
-  controlValue: EventEmitter<string> = new EventEmitter<string>();
+  readonly controlValue = output<string>();
 
   onInput(value: string): void {
     this.controlValue.emit(value);

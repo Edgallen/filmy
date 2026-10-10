@@ -16,6 +16,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'log-in',
+        title: 'Авторизация',
         component: LoginPage,
       },
       {

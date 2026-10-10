@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { PasswordInputComponent } from '../../../shared/components/password-input/password-input.component';
 import { AuthService } from '../../../shared/services/auth.service';
+import { TitleService } from '../../../shared/services/title.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,6 +20,7 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrl: './log-in.page.scss',
 })
 export class LoginPage {
+  readonly title = inject(TitleService).title;
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 

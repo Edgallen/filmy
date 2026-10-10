@@ -1,15 +1,23 @@
+@let movies = movies$ | async;
+
 <app-header>
-  <p class="favorites__count">Вы добавили {{ movieCountLabel }}</p>
+  @if (movies) {
+    <p class="favorites__count">Вы добавили {{ movieCountLabel(movies.length) }}</p>
+  }
 </app-header>
 
-@if (movies.length) {
-  <ul class="favorites__movies">
-    @for (movie of movies; track movie.id) {
-      <li class="favorites__movie">
-        <app-card [movie]="movie" />
-      </li>
-    }
-  </ul>
+@if (movies) {
+  @if (movies.length) {
+    <ul class="favorites__movies">
+      @for (movie of movies; track movie.id) {
+        <li class="favorites__movie">
+          <app-card [movie]="movie" />
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="favorites__empty">В избранном пока нет фильмов</p>
+  }
 } @else {
-  <p class="favorites__empty">В избранном пока нет фильмов</p>
+  <p class="favorites__count" role="status">Загрузка избранного...</p>
 }

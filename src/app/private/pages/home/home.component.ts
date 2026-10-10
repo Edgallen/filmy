@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-
-import { MOVIES } from '../../../shared/const/fake-films.const';
-
-import type { IMovie } from '../../../shared/models/movie.model';
+import { AsyncPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MoviesService } from '../../../shared/services/movies.service';
 import { CardComponent } from '../../components/card/card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CardComponent, HeaderComponent],
+  imports: [AsyncPipe, CardComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomePage {
-  movies: IMovie[] = MOVIES;
+  readonly movies$ = inject(MoviesService).getMovies();
 }

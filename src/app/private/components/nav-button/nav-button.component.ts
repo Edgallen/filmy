@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-nav-button',
@@ -13,7 +13,7 @@ export class NavButtonComponent {
   disabled = input(false);
   isActive = input(false);
 
-  @Output() clicked = new EventEmitter<Event>();
+  readonly clicked = output<Event>();
 
   onClick(event: Event): void {
     if (!this.disabled()) {

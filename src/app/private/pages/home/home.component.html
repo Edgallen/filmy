@@ -1,12 +1,16 @@
 <app-header />
-<ul class="home__movies">
-  @for (movie of movies; track movie.id) {
-    <li class="home__movie">
-      <app-card [movie]="movie" />
-    </li>
-  } @empty {
-    <li class="home__empty">
-      <p class="home__empty-text">Ничего не найдено</p>
-    </li>
-  }
-</ul>
+@if (movies$ | async; as movies) {
+  <ul class="home__movies">
+    @for (movie of movies; track movie.id) {
+      <li class="home__movie">
+        <app-card [movie]="movie" />
+      </li>
+    } @empty {
+      <li class="home__empty">
+        <p class="home__empty-text">Ничего не найдено</p>
+      </li>
+    }
+  </ul>
+} @else {
+  <p class="home__empty-text" role="status">Загрузка фильмов...</p>
+}

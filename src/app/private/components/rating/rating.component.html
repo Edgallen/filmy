@@ -1,12 +1,12 @@
 <div
   class="rating"
   role="img"
-  [attr.aria-label]="'Рейтинг: ' + (rating ?? 0) + ' из 5'"
+  [attr.aria-label]="'Рейтинг: ' + (rating() ?? 0) + ' из 5'"
 >
   @for (star of stars; track star) {
     <app-star-icon
       class="rating__star"
-      [class.rating__star--active]="(rating ?? 0) >= star"
+      [class.rating__star--active]="(rating() ?? 0) >= star"
     />
   }
 </div>
