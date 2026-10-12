@@ -5,7 +5,13 @@
       routerLink="/private/home"
       aria-label="Filmy: на главную"
     >
-      <img priority ngSrc="/images/logo.png" width="117" height="29" alt="Filmy" />
+      <img
+        priority
+        ngSrc="/images/logo.png"
+        width="117"
+        height="29"
+        alt="Filmy"
+      />
     </a>
 
     <nav class="private-layout__menu" aria-label="Основная навигация">
@@ -13,6 +19,7 @@
         <div
           class="private-layout__menu-item"
           [routerLink]="navLink.disabled ? null : navLink.link"
+          queryParamsHandling="preserve"
           routerLinkActive
           [routerLinkActiveOptions]="{ exact: true }"
           #rla="routerLinkActive"
@@ -33,23 +40,69 @@
       @if (!routeState().hideSearch) {
         <app-search
           class="private-layout__search"
-          [value]="routeState().query"
+          [value]="filters().name"
           (searchValue)="onSearch($event)"
         />
       }
 
       <fieldset class="private-layout__genres">
         <legend class="private-layout__label">Жанр</legend>
-        @for (genre of genres; track genre.id) {
+        @for (genre of genres$ | async; track genre.id) {
           <label class="private-layout__genre">
             <input
               class="private-layout__radio"
               type="radio"
               name="genre"
               [value]="genre.id"
-              [(ngModel)]="selectedGenreId"
+              [ngModel]="filters().genre ?? 0"
+              (ngModelChange)="
+                updateFilters({ genre: $event === 0 ? null : $event })
+              "
             />
             <span>{{ genre.name }}</span>
+          </label>
+        }
+      </fieldset>
+
+      <fieldset class="private-layout__genres private-layout__filter-group">
+        <legend class="private-layout__label">Дата выхода</legend>
+        <div class="private-layout__years">
+          <input
+            class="private-layout__year"
+            type="number"
+            name="from"
+            aria-label="Год выхода от"
+            placeholder="От"
+            min="1888"
+            [ngModel]="filters().from"
+            (ngModelChange)="updateFilters({ from: $event })"
+          />
+          <input
+            class="private-layout__year"
+            type="number"
+            name="to"
+            aria-label="Год выхода до"
+            placeholder="До"
+            min="1888"
+            [ngModel]="filters().to"
+            (ngModelChange)="updateFilters({ to: $event })"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset class="private-layout__genres private-layout__filter-group">
+        <legend class="private-layout__label">Сортировать</legend>
+        @for (option of sortOptions; track option.value) {
+          <label class="private-layout__genre">
+            <input
+              class="private-layout__radio"
+              type="radio"
+              name="sort"
+              [value]="option.value"
+              [ngModel]="filters().sort"
+              (ngModelChange)="updateFilters({ sort: $event })"
+            />
+            <span>{{ option.label }}</span>
           </label>
         }
       </fieldset>

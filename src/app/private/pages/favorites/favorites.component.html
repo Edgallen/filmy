@@ -1,12 +1,14 @@
 @let movies = movies$ | async;
 
 <app-header>
-  @if (movies) {
+  @if (!isLoading() && movies) {
     <p class="favorites__count">Вы добавили {{ movieCountLabel(movies.length) }}</p>
   }
 </app-header>
 
-@if (movies) {
+@if (isLoading()) {
+  <p class="favorites__count" role="status">Загрузка избранного...</p>
+} @else if (movies) {
   @if (movies.length) {
     <ul class="favorites__movies">
       @for (movie of movies; track movie.id) {
@@ -18,6 +20,4 @@
   } @else {
     <p class="favorites__empty">В избранном пока нет фильмов</p>
   }
-} @else {
-  <p class="favorites__count" role="status">Загрузка избранного...</p>
 }
