@@ -1,0 +1,13 @@
+<select
+  class="select"
+  [attr.aria-label]="ariaLabel()"
+  [disabled]="disabled()"
+  [value]="selectedIndex()"
+  (change)="onSelect($event)"
+  (blur)="markTouched()"
+>
+  <option value="-1">{{ placeholder() }}</option>
+  @for (option of options(); track $index) {
+    <option [value]="$index">{{ option.label }}</option>
+  }
+</select>

@@ -1,19 +1,20 @@
-<form role="search" (submit)="onSubmit($event)">
+<div role="search">
   <app-input
-    [value]="value()"
-    iconUrl="/icons/search.svg"
+    [formControl]="control"
+    prefixIcon="/icons/search.svg"
     placeholder="Поиск"
     ariaLabel="Поиск фильмов"
-    (controlValue)="searchValue.emit($event)"
   >
     <button
       inputAction
       class="search__submit"
-      type="submit"
+      type="button"
+      [disabled]="disabled()"
+      (click)="onSearch()"
       aria-label="Найти фильмы"
       title="Найти фильмы"
     >
-      <img src="/icons/arrow-right.svg" width="20" height="20" alt="" />
+      <img ngSrc="/icons/arrow-right.svg" width="20" height="20" alt="" />
     </button>
   </app-input>
-</form>
+</div>

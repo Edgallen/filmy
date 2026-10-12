@@ -1,19 +1,35 @@
-<div class="form__control">
-  <div class="form__icon">
-    @if (iconUrl()) {
-      <img class="form__icon-image" [src]="iconUrl()" alt="" />
-    }
-  </div>
+<div
+  class="form__control"
+  [class.form__control--invalid]="invalid()"
+  [class.form__control--disabled]="disabled()"
+>
+  @if (prefixIcon(); as icon) {
+    <img class="form__icon" [ngSrc]="icon" width="24" height="24" alt="" />
+  }
 
   <input
     class="form__input"
     [type]="type()"
     [placeholder]="placeholder()"
     [attr.aria-label]="ariaLabel()"
+    [attr.aria-invalid]="invalid()"
+    [attr.aria-describedby]="describedBy()"
+    [autocomplete]="autocomplete()"
     [disabled]="disabled()"
-    [value]="value()"
+    [value]="value() ?? ''"
     (input)="onInput($event)"
+    (blur)="markTouched()"
   />
+
+  @if (postfixIcon(); as icon) {
+    <img
+      class="form__icon form__icon--postfix"
+      [ngSrc]="icon"
+      width="24"
+      height="24"
+      alt=""
+    />
+  }
 
   <ng-content select="[inputAction]" />
 </div>

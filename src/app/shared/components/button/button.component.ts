@@ -11,5 +11,6 @@ type ButtonType = 'button' | 'submit' | 'reset';
 })
 export class ButtonComponent {
   readonly type = input<ButtonType>('button');
+  readonly disabled = input(false);
   readonly clicked = output<MouseEvent>();
 }

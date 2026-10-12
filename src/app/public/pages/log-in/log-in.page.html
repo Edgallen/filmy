@@ -1,30 +1,51 @@
 <div class="login">
   <div class="login__logoContainer">
-    <img ngSrc="/images/logo.png" alt="logo" width="117" height="29">
+    <img ngSrc="/images/logo.png" alt="Filmy" width="117" height="29" />
   </div>
-
-  <form
-    class="login__form" (submit)="onSubmit($event)">
+  <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <h2 class="login__title">{{ title() }}</h2>
-
     <div class="login__inputWrapper">
-      <app-input
-        [value]="emailValue"
-        (controlValue)="emailValue = $event"
-        iconUrl="/icons/user.svg"
-        placeholder="Email"
-      />
-
-      <app-password-input
-        [value]="passwordValue"
-        (controlValue)="passwordValue = $event"
-        iconUrl="/icons/lock.svg"
-        placeholder="Пароль"
-      />
+      @let email = form.controls.email;
+      @let emailInvalid = email.invalid && (email.dirty || email.touched);
+      <div class="login__field">
+        <app-input
+          formControlName="email"
+          prefixIcon="/icons/user.svg"
+          placeholder="Email"
+          ariaLabel="Email"
+          type="email"
+          autocomplete="email"
+          [invalid]="emailInvalid"
+          [describedBy]="emailInvalid ? 'email-error' : null"
+        />
+        @if (emailInvalid) {
+          <p class="login__error" id="email-error" role="alert">
+            {{
+              email.hasError('required')
+                ? 'Введите email'
+                : 'Введите корректный email'
+            }}
+          </p>
+        }
+      </div>
+      @let password = form.controls.password;
+      @let passwordInvalid =
+        password.invalid && (password.dirty || password.touched);
+      <div class="login__field">
+        <app-password-input
+          formControlName="password"
+          prefixIcon="/icons/lock.svg"
+          placeholder="Пароль"
+          [invalid]="passwordInvalid"
+          [describedBy]="passwordInvalid ? 'password-error' : null"
+        />
+        @if (passwordInvalid) {
+          <p class="login__error" id="password-error" role="alert">
+            Введите пароль
+          </p>
+        }
+      </div>
     </div>
-
-    <app-button type="submit">
-      Войти
-    </app-button>
+    <app-button type="submit" [disabled]="isSubmitDisabled()">Войти</app-button>
   </form>
 </div>

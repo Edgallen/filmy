@@ -11,16 +11,26 @@
   min-height: 52px;
   padding: 0 49px;
   box-sizing: border-box;
-  background-color: #D89C00;
+  background-color: #d89c00;
   border-radius: 16px;
   border: none;
   outline: none;
   cursor: pointer;
 
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+
   &__content {
     font-size: 14px;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: #ffffff;
     overflow-wrap: anywhere;
   }
 }
