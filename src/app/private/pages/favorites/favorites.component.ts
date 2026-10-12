@@ -1,6 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MoviesService } from '../../../shared/services/movies.service';
+import { StoreService } from '../../../shared/services/store.service';
 import { CardComponent } from '../../components/card/card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 
@@ -10,8 +12,23 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
 })
-export class FavoritesPages {
-  readonly movies$ = inject(MoviesService).getFavorites();
+export class FavoritesPages implements OnInit {
+  private readonly store = inject(StoreService);
+  private readonly moviesService = inject(MoviesService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly movies$ = this.store.favorites$;
+  readonly isLoading = signal(true);
+
+  ngOnInit(): void {
+    this.moviesService
+      .getFavorites()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((favorites) => {
+        this.store.updateData({ favorites });
+        this.isLoading.set(false);
+      });
+  }
 
   movieCountLabel(count: number): string {
     const lastTwoDigits = count % 100;

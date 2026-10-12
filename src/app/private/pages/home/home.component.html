@@ -1,5 +1,7 @@
 <app-header />
-@if (movies$ | async; as movies) {
+@if (isLoading()) {
+  <p class="home__empty-text" role="status">Загрузка фильмов...</p>
+} @else if (movies$ | async; as movies) {
   <ul class="home__movies">
     @for (movie of movies; track movie.id) {
       <li class="home__movie">
@@ -11,6 +13,4 @@
       </li>
     }
   </ul>
-} @else {
-  <p class="home__empty-text" role="status">Загрузка фильмов...</p>
 }
