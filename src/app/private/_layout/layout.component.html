@@ -13,7 +13,6 @@
         alt="Filmy"
       />
     </a>
-
     <nav class="private-layout__menu" aria-label="Основная навигация">
       @for (navLink of navLinks; track navLink.id) {
         <div
@@ -34,82 +33,49 @@
       }
     </nav>
   </header>
-
   <div class="private-layout__body">
     <aside class="private-layout__filters" aria-label="Фильтры фильмов">
-      @if (!routeState().hideSearch) {
-        <app-search
-          class="private-layout__search"
-          [value]="filters().name"
-          (searchValue)="onSearch($event)"
-        />
-      }
-
-      <fieldset class="private-layout__genres">
-        <legend class="private-layout__label">Жанр</legend>
-        @for (genre of genres$ | async; track genre.id) {
-          <label class="private-layout__genre">
-            <input
-              class="private-layout__radio"
-              type="radio"
-              name="genre"
-              [value]="genre.id"
-              [ngModel]="filters().genre ?? 0"
-              (ngModelChange)="
-                updateFilters({ genre: $event === 0 ? null : $event })
-              "
-            />
-            <span>{{ genre.name }}</span>
-          </label>
+      <form [formGroup]="form">
+        @if (!routeState().hideSearch) {
+          <app-search class="private-layout__search" formControlName="name" />
         }
-      </fieldset>
-
-      <fieldset class="private-layout__genres private-layout__filter-group">
-        <legend class="private-layout__label">Дата выхода</legend>
-        <div class="private-layout__years">
-          <input
-            class="private-layout__year"
-            type="number"
-            name="from"
-            aria-label="Год выхода от"
-            placeholder="От"
-            min="1888"
-            [ngModel]="filters().from"
-            (ngModelChange)="updateFilters({ from: $event })"
+        <fieldset class="private-layout__genres">
+          <legend class="private-layout__label">Жанр</legend>
+          <app-radio
+            name="genre"
+            formControlName="genre"
+            [options]="(genreOptions$ | async) ?? []"
           />
-          <input
-            class="private-layout__year"
-            type="number"
-            name="to"
-            aria-label="Год выхода до"
-            placeholder="До"
-            min="1888"
-            [ngModel]="filters().to"
-            (ngModelChange)="updateFilters({ to: $event })"
-          />
-        </div>
-      </fieldset>
-
-      <fieldset class="private-layout__genres private-layout__filter-group">
-        <legend class="private-layout__label">Сортировать</legend>
-        @for (option of sortOptions; track option.value) {
-          <label class="private-layout__genre">
-            <input
-              class="private-layout__radio"
-              type="radio"
+        </fieldset>
+        @if (hasSearch()) {
+          <fieldset class="private-layout__genres private-layout__filter-group">
+            <legend class="private-layout__label">Дата выхода</legend>
+            <div class="private-layout__years">
+              <app-select
+                formControlName="from"
+                [options]="yearOptions"
+                placeholder="От"
+                ariaLabel="Год выхода от"
+              />
+              <app-select
+                formControlName="to"
+                [options]="yearOptions"
+                placeholder="До"
+                ariaLabel="Год выхода до"
+              />
+            </div>
+          </fieldset>
+          <fieldset class="private-layout__genres private-layout__filter-group">
+            <legend class="private-layout__label">Сортировать</legend>
+            <app-radio
               name="sort"
-              [value]="option.value"
-              [ngModel]="filters().sort"
-              (ngModelChange)="updateFilters({ sort: $event })"
+              formControlName="sort"
+              [options]="sortOptions"
             />
-            <span>{{ option.label }}</span>
-          </label>
+          </fieldset>
         }
-      </fieldset>
+      </form>
     </aside>
-
-    <main class="private-layout__content">
-      <router-outlet />
-    </main>
+    <main class="private-layout__content"><router-outlet /></main>
   </div>
 </div>

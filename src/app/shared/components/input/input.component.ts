@@ -1,24 +1,33 @@
-import { Component, input, output } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, forwardRef, input } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CvaControl } from '../control-value-accessor';
 
 @Component({
   selector: 'app-input',
-  imports: [],
+  imports: [NgOptimizedImage],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   standalone: true,
 })
-export class InputComponent {
-  value = input<string>('');
-  iconUrl = input<string | null>(null);
+export class InputComponent extends CvaControl<string> {
+  prefixIcon = input<string | null>(null);
+  postfixIcon = input<string | null>(null);
   type = input<string>('text');
   placeholder = input<string>('');
   ariaLabel = input<string | null>(null);
-  disabled = input<boolean>(false);
-
-  readonly controlValue = output<string>();
+  autocomplete = input('off');
+  invalid = input(false);
+  describedBy = input<string | null>(null);
 
   onInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.controlValue.emit(input.value);
+    this.changeValue((event.target as HTMLInputElement).value);
   }
 }

@@ -1,0 +1,14 @@
+@for (option of options(); track $index) {
+  <label class="radio" [class.radio--disabled]="disabled()">
+    <input
+      class="radio__input"
+      type="radio"
+      [name]="name()"
+      [checked]="value() === option.value"
+      [disabled]="disabled()"
+      (change)="onSelect(option.value)"
+      (blur)="markTouched()"
+    />
+    <span>{{ option.label }}</span>
+  </label>
+}
